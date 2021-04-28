@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class LoginPage extends AppCompatActivity {
 
     EditText text_username, text_password;
-    Button button_login,button_register;
+    Button button_login,button_signup;
     DBLinker DB;
 
 
@@ -24,7 +24,7 @@ public class LoginPage extends AppCompatActivity {
         text_username = (EditText) findViewById(R.id.txt_username2);
         text_password = (EditText) findViewById(R.id.txt_password2);
         button_login = (Button) findViewById(R.id.btn_login);
-        button_register = (Button) findViewById(R.id.btn_signup);
+        button_signup = (Button) findViewById(R.id.btn_signup);
         DB = new DBLinker(this);
 
         button_login.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,7 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        button_register.setOnClickListener(new View.OnClickListener() {
+        button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);

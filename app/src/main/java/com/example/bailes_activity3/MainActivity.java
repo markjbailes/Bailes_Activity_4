@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     EditText text_username,text_password,text_retype_password;
-    Button button_register,button_login,button_go_back;
+    Button button_register,button_goback;
     DBLinker DB;
 
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         text_password= (EditText)findViewById(R.id.txt_password);
         text_retype_password = (EditText)findViewById(R.id.txt_retypepassword);
         button_register = (Button)findViewById(R.id.btn_register);
-        button_go_back = (Button)findViewById(R.id.btn_goback);
+        button_goback = (Button)findViewById(R.id.btn_goback);
         DB = new DBLinker(this);
 
         button_register.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                             Boolean insert = DB.insertData(user,pass);
 
                             if(insert==true){
-                                Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),LoginPage.class);
                                 startActivity(intent);
                             }else{
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button_go_back.setOnClickListener(new View.OnClickListener() {
+        button_goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
