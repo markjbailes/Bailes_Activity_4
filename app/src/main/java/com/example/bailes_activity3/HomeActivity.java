@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 updatePlayerScore();
                 playAgain();
             }else{
-                Toast.makeText(this,"Player Two the game!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Player Two won the game!",Toast.LENGTH_SHORT).show();
                 playertwoscorecount++;
                 updatePlayerScore();
                 playAgain();
