@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView text_player_one_score, text_player_two_score;
+    TextView text_player_one_score, text_player_two_score, text_round_count, text_draw_count;
     Button[] button = new Button[9];
     Button button_reset;
-    int playeronescorecount, playertwoscorecount, roundcount;
+    int playeronescorecount, playertwoscorecount, roundcount, roundCount, drawCount;
     boolean activePlayer;
 
     int [] gameState = {2,2,2,2,2,2,2,2,2};
@@ -32,6 +32,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         text_player_one_score = (TextView) findViewById(R.id.txt_player_one_score);
         text_player_two_score = (TextView) findViewById(R.id.txt_player_two_score);
+        text_round_count = (TextView) findViewById(R.id.txt_round_count);
+        text_draw_count = (TextView) findViewById(R.id.txt_draw_count);
         button_reset = (Button) findViewById(R.id.btn_reset);
 
         for (int i=0; i < button.length; i++){
@@ -43,12 +45,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         roundcount = 0;
         playeronescorecount = 0;
         playertwoscorecount = 0;
+        roundCount = 0;
+        drawCount = 0;
         activePlayer = true;
     }
 
     @Override
     public void onClick(View view){
-        //Log.i("test","the button is pressed");
+        Log.i("test","the button is pressed");
         if(!((Button)view).getText().toString().equals("")){
             return;
         }
@@ -62,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         else{
             ((Button)view).setText("O");
             ((Button)view).setTextColor(Color.parseColor("#f55142"));
-            gameState[gameStatePointer] = 0;
+            gameState[gameStatePointer] = 1;
         }
         roundcount++;
 
@@ -70,17 +74,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             if(activePlayer){
                 Toast.makeText(this,"Player One won the game!",Toast.LENGTH_SHORT).show();
                 playeronescorecount++;
+                roundCount++;
                 updatePlayerScore();
                 playAgain();
+                updateRoundCount();
             }else{
                 Toast.makeText(this,"Player Two won the game!",Toast.LENGTH_SHORT).show();
                 playertwoscorecount++;
+                roundCount++;
                 updatePlayerScore();
                 playAgain();
+                updateRoundCount();
             }
         }else if(roundcount == 9){
+            drawCount++;
             playAgain();
             Toast.makeText(this,"Draw!",Toast.LENGTH_SHORT).show();
+            updateDrawCount();
+            updateRoundCount();
+
         }else{
             activePlayer = !activePlayer;
         }
@@ -91,7 +103,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 playAgain();
                 playeronescorecount = 0;
                 playertwoscorecount = 0;
+                roundCount = 0;
+                drawCount = 0;
                 updatePlayerScore();
+                updateRoundCount();
+                updateDrawCount();
             }
         });
     }
@@ -102,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         for (int []winningState:winningStates){
             if(gameState[winningState[0]]==gameState[winningState[1]]&&
                     gameState[winningState[1]]==gameState[winningState[2]] &&
-                        gameState[winningState[0]] !=2){
+                    gameState[winningState[0]] !=2){
                 winnerResult = true;
             }
         }
@@ -112,6 +128,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void updatePlayerScore(){
         text_player_one_score.setText(Integer.toString(playeronescorecount));
         text_player_two_score.setText(Integer.toString(playertwoscorecount));
+    }
+    public void updateRoundCount(){
+        text_round_count.setText(Integer.toString(roundCount));
+    }
+
+    public void updateDrawCount(){
+        text_draw_count.setText(Integer.toString(drawCount));
     }
 
     public void playAgain(){
